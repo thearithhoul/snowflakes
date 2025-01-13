@@ -2,8 +2,8 @@
 
 It's a simple code that create an snow flakes falling effices
 
-## Screenshots
-![Video 1] (screenshots/2025-01-14 04-55-05.mp4)
+## videos
+[Watch the Video](screenshots/video1.mp4)
 
 
 ## Installation
