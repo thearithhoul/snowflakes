@@ -37,7 +37,7 @@ class _SnowFlakeState extends State<SnowFlake>
   void changeNTimeSnowFlake(int n) {
     _snowflaks = List.generate(
       n,
-      (index) => Snowflake(),
+      (index) => Snowflake(MediaQuery.of(context).size),
     );
   }
 
@@ -48,12 +48,9 @@ class _SnowFlakeState extends State<SnowFlake>
       body: SafeArea(
         child: Stack(
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: CustomPaint(
-                isComplex: true,
-                painter: SnowPainter(_snowflaks, _controller),
-              ),
+            CustomPaint(
+              isComplex: true,
+              painter: SnowPainter(_snowflaks, _controller),
             ),
             Slider(
               min: 0,
@@ -99,18 +96,19 @@ class SnowPainter extends CustomPainter {
 class Snowflake {
   double x, y, radius, speed;
   static final Random _random = Random();
+  final Size size;
 
-  Snowflake()
-      : x = _random.nextDouble() * 500,
-        y = _random.nextDouble() * 500,
+  Snowflake(this.size)
+      : x = _random.nextDouble() * size.width,
+        y = _random.nextDouble() * size.height,
         radius = _random.nextDouble() * 2 + 1,
-        speed = _random.nextDouble() * 2;
+        speed = _random.nextDouble() * 2 + 1;
 
   void update() {
     y += speed;
-    if (y > 800) {
+    if (y > size.height) {
       y = 0;
-      x = _random.nextDouble() * 400;
+      x = _random.nextDouble() * size.width;
     }
   }
 }
